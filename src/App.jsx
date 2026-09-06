@@ -15,6 +15,8 @@ import Footer from "./footer/Footer";
 import Checkout from "./checkout/Checkout";
 import AdminProducts from "./admin/AdminProducts";
 import AdminProductForm from "./admin/AdminProductForm";
+import Login from "./pages/Login.jsx";
+import Signup from "./pages/Signup.jsx";
 
 function App() {
   return (
@@ -55,6 +57,10 @@ function App() {
             path="/admin/products"
             element={<AdminProducts />}
           />
+
+          <Route path="/login" element={<Login />} />
+
+          <Route path="/signup" element={<Signup />} />
 
           <Route
             path="/admin/products/new"
