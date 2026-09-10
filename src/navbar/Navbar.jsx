@@ -10,6 +10,7 @@ import {
 } from "react-icons/fi";
 
 import { useCart } from "../pages/useCart";
+// import Accounts from "../pages/Accounts";
 
 import "./Navbar.css";
 
@@ -116,7 +117,7 @@ const Navbar = () => {
           {/* ACCOUNT */}
 
           <Link
-            to="/account"
+            to="/accounts"
             aria-label="Account"
           >
             <FiUser />
