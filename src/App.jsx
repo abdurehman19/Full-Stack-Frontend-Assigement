@@ -70,6 +70,8 @@ function App() {
           <Route path="/accounts" element={<Accounts />} />
 
           <Route path="/newarrival" element={<NewArrivals/>}></Route>
+           
+          
 
 
           <Route

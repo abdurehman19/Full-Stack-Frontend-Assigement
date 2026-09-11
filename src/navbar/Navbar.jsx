@@ -70,6 +70,10 @@ const Navbar = () => {
             Brands
           </Link>
 
+          <a href="https://admin-dashboard-ruddy-nu.vercel.app" target="_blank" rel="noopener noreferrer">
+            Admin Dashboard
+          </a>
+
         </div>
 
 

@@ -45,7 +45,7 @@ function Topselling() {
   if (loading) {
     return (
       <section className="new-arrivals">
-        <h2>NEW ARRIVALS</h2>
+        <h2>Top Selling</h2>
         <p>Loading products...</p>
       </section>
     );
@@ -54,7 +54,7 @@ function Topselling() {
   if (error) {
     return (
       <section className="new-arrivals">
-        <h2>NEW ARRIVALS</h2>
+        <h2>Top Selling</h2>
         <p>{error}</p>
       </section>
     );
@@ -67,7 +67,7 @@ function Topselling() {
   return (
     <section className="new-arrivals">
 
-      <h2>NEW ARRIVALS</h2>
+      <h2>TOP SELLING</h2>
 
       <div className="products-grid">
 
