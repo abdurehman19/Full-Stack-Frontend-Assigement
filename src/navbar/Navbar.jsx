@@ -58,11 +58,11 @@ const Navbar = () => {
             <FiChevronDown />
           </Link>
 
-          <Link to="/sale">
+          <Link to="/shop">
             On Sale
           </Link>
 
-          <Link to="/new-arrivals">
+          <Link to="/newarrival">
             New Arrivals
           </Link>
 

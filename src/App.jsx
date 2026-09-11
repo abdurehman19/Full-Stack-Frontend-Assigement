@@ -18,6 +18,7 @@ import AdminProductForm from "./admin/AdminProductForm";
 import Login from "./pages/Login.jsx";
 import Signup from "./pages/Signup.jsx";
 import Accounts from "./pages/Accounts.jsx";
+import NewArrivals from "./newarrival/NewArrivals.jsx";
 
 function App() {
   return (
@@ -66,8 +67,10 @@ function App() {
 
 
 
-      <Route path="/accounts" element={<Accounts />} />
-  
+          <Route path="/accounts" element={<Accounts />} />
+
+          <Route path="/newarrival" element={<NewArrivals/>}></Route>
+
 
           <Route
             path="/admin/products/new"

@@ -23,17 +23,12 @@ const Checkout = () => {
   });
 
   const [paymentMethod, setPaymentMethod] = useState("cash");
-
   const [orderPlaced, setOrderPlaced] = useState(false);
 
   const delivery = 15;
-
   const total = cartTotal + delivery;
 
-  // =========================
   // HANDLE INPUT
-  // =========================
-
   const handleChange = (e) => {
     const { name, value } = e.target;
 
@@ -43,53 +38,79 @@ const Checkout = () => {
     });
   };
 
-  // =========================
   // PLACE ORDER
-  // =========================
-
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
-    setOrderPlaced(true);
+    const token = localStorage.getItem("token");
 
-    clearCart();
+    if (!token) {
+      alert("Please login before placing order");
+      navigate("/login");
+      return;
+    }
+
+    const orderProducts = cartItems.map((item) => ({
+      product: item._id || item.id,
+      quantity: Number(item.quantity || 1),
+      price: Number(item.price || 0),
+    }));
+
+    try {
+      const res = await fetch(
+        "https://full-stack-assignment-backend.vercel.app/api/orders",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+          body: JSON.stringify({
+            products: orderProducts,
+            totalAmount: total,
+          }),
+        }
+      );
+
+      const data = await res.json();
+
+      if (res.ok) {
+        console.log("Order:", data.order);
+
+        setOrderPlaced(true);
+        clearCart();
+      } else {
+        alert(data.message);
+      }
+    } catch (error) {
+      console.log(error);
+      alert("Something went wrong");
+    }
   };
 
-  // =========================
   // EMPTY CART
-  // =========================
-
   if (cartItems.length === 0 && !orderPlaced) {
     return (
       <main className="checkout-page">
         <div className="empty-checkout">
-
-          <h1>
-            Your Cart is Empty
-          </h1>
+          <h1>Your Cart is Empty</h1>
 
           <p>
-            Please add some products before
-            going to checkout.
+            Please add some products before going to checkout.
           </p>
 
           <Link to="/shop">
             Continue Shopping
           </Link>
-
         </div>
       </main>
     );
   }
 
-  // =========================
   // ORDER SUCCESS
-  // =========================
-
   if (orderPlaced) {
     return (
       <main className="checkout-page">
-
         <div className="order-success">
 
           <div className="success-icon">
@@ -105,14 +126,11 @@ const Checkout = () => {
             We will contact you shortly.
           </p>
 
-          <button
-            onClick={() => navigate("/")}
-          >
+          <button onClick={() => navigate("/")}>
             Continue Shopping
           </button>
 
         </div>
-
       </main>
     );
   }
@@ -120,10 +138,7 @@ const Checkout = () => {
   return (
     <main className="checkout-page">
 
-      {/* =========================
-          BREADCRUMB
-      ========================= */}
-
+      {/* BREADCRUMB */}
       <div className="checkout-breadcrumb">
 
         <Link to="/">
@@ -150,17 +165,13 @@ const Checkout = () => {
 
       <div className="checkout-layout">
 
-        {/* =========================
-            CHECKOUT FORM
-        ========================= */}
-
+        {/* CHECKOUT FORM */}
         <form
           className="checkout-form"
           onSubmit={handleSubmit}
         >
 
-          {/* CUSTOMER INFORMATION */}
-
+          {/* CONTACT INFORMATION */}
           <section className="checkout-section">
 
             <h2>
@@ -204,7 +215,6 @@ const Checkout = () => {
           </section>
 
           {/* SHIPPING ADDRESS */}
-
           <section className="checkout-section">
 
             <h2>
@@ -307,7 +317,6 @@ const Checkout = () => {
           </section>
 
           {/* PAYMENT */}
-
           <section className="checkout-section">
 
             <h2>
@@ -373,10 +382,7 @@ const Checkout = () => {
 
         </form>
 
-        {/* =========================
-            ORDER SUMMARY
-        ========================= */}
-
+        {/* ORDER SUMMARY */}
         <aside className="checkout-summary">
 
           <h2>
@@ -431,7 +437,8 @@ const Checkout = () => {
                     )}
 
                     <strong>
-                      ${(
+                      $
+                      {(
                         Number(item.price || 0) *
                         Number(item.quantity || 1)
                       ).toFixed(2)}
